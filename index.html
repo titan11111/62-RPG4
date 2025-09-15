@@ -75,12 +75,22 @@
             top: 15px;
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-start;
             color: #fff;
             font-size: 1.5em;
             text-shadow: 2px 2px 4px #000;
             padding: 0 20px;
             box-sizing: border-box;
+        }
+
+        #time-container {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            z-index: 11;
         }
         .stats-container {
             display: flex;
@@ -150,6 +160,9 @@
                 align-items: center;
                 gap: 5px;
             }
+            #time-container {
+                font-size: 2em;
+            }
             #message-text {
                 font-size: 1em;
             }
@@ -180,11 +193,11 @@
             </div>
             <button id="start-button">スタート</button>
         </div>
-        <div id="hud" style="display:none;">
-            <div>タイム: <span id="time-display">00:00</span></div>
-            <div>スコア: <span id="score-display">0</span></div>
-        </div>
     </div>
+    <div id="hud" style="display:none;">
+        <div>スコア: <span id="score-display">0</span></div>
+    </div>
+    <div id="time-container" style="display:none;">プレイタイム: <span id="time-display">00:00</span></div>
 
     <!-- 仮想ジョイスティックとジャンプボタン -->
     <div id="joystick-container">
@@ -227,6 +240,7 @@
         const messageText = document.getElementById('message-text');
         const startButton = document.getElementById('start-button');
         const hud = document.getElementById('hud');
+        const timeContainer = document.getElementById('time-container');
         const timeDisplay = document.getElementById('time-display');
         const scoreDisplay = document.getElementById('score-display');
         const upgradeSection = document.getElementById('upgrade-section');
@@ -839,6 +853,7 @@
             }
             upgradeSection.style.display = 'none';
             hud.style.display = 'none';
+            timeContainer.style.display = 'none';
         }
         
         function isTouchDevice() {
@@ -856,6 +871,7 @@
             uiOverlay.style.display = 'none';
             messageBox.style.display = 'none';
             hud.style.display = 'flex';
+            timeContainer.style.display = 'block';
             playerBody.position.set(0, 2, 0);
             playerBody.velocity.set(0, 0, 0);
             Tone.Transport.start();
